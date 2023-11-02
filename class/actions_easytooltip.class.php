@@ -102,18 +102,39 @@ class ActionsEasyTooltip
 			$found = true;
 			// ADDING LAST CUSTOMER ORDER
 			if ($object->type == Product::TYPE_PRODUCT || ($object->type == Product::TYPE_SERVICE && getDolGlobalString('STOCK_SUPPORTS_SERVICES'))) {
-				$sql = 'SELECT c.rowid as id FROM '.MAIN_DB_PREFIX.'commandedet as cd';
-				$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'commande as c ON c.rowid=cd.fk_commande WHERE cd.fk_product='.$object->id.' ORDER BY cd.rowid DESC';
+				$sql = 'SELECT c.rowid as id, c.fk_soc, cd.qty FROM ' . MAIN_DB_PREFIX . 'commandedet as cd';
+				$sql .= ' LEFT JOIN ' . MAIN_DB_PREFIX . 'commande as c ON c.rowid=cd.fk_commande WHERE cd.fk_product=' . $object->id . ' ORDER BY cd.rowid DESC LIMIT 2';
 				$resql = $this->db->query($sql);
 				if ($this->db->num_rows($resql) > 0) {
-					$obj = $this->db->fetch_object($resql);
 					require_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
 					$static_order = new Commande($this->db);
-					$static_order->fetch($obj->id);
-					$parameters['tooltipcontentarray']['lastcustomerorder'] = '<br><b>'.$langs->trans('LastCustomerOrder').':</b> ' . $static_order->getNomUrl(1, '', 0, 0, 1);
+					$static_customer = new Societe($this->db);
+					$tooltip = '<br>';
+					$tooltip .= '<table class="noborder centpercent">';
+					$tooltip .= '<tr class="liste_titre">';
+					$tooltip .= '<th>' . $langs->trans("LastCustomerOrders") . '</th>';
+					$tooltip .= '<th class="left">' . $langs->trans("EasyTooltipCustomers") . '</th>';
+					$tooltip .= '<th class="right">' . $langs->trans("Qty") . '</th>';
+					$tooltip .= '</tr>';
+					$total = 0;
+					while ($obj = $this->db->fetch_object($resql)) {
+						$static_order->fetch($obj->id);
+						$static_customer->fetch($obj->fk_soc);
+						$tooltip .= '<tr class="oddeven">';
+						$tooltip .= '<td>' . $static_order->getNomUrl(1, '', 0, 0, 1) . '</td>';
+						$tooltip .= '<td class="left">' . $static_customer->getNomUrl(1, '', 0, 1) . '</td>';
+						$tooltip .= '<td class="right">' . $obj->qty . '</td>';
+						$total += $obj->qty;
+						$tooltip .= '</tr>';
+					}
+					$tooltip .= '<tr class="liste_total">';
+					$tooltip .= '<td colspan="2" class="liste_total">' . $langs->trans("Total") . ':</td>';
+					$tooltip .= '<td class="liste_total right">' . $total . '</td>';
+					$tooltip .= '</tr></table>';
+					$parameters['tooltipcontentarray']['lastcustomerorder'] = $tooltip;
 				}
 			}
-			// ADDING WARHOUSE
+			// ADDING WAREHOUSE
 			if ($object->type == Product::TYPE_PRODUCT || ($object->type == Product::TYPE_SERVICE && getDolGlobalString('STOCK_SUPPORTS_SERVICES'))) {
 				$langs->load('stocks');
 				require_once DOL_DOCUMENT_ROOT . '/product/stock/class/entrepot.class.php';
@@ -183,26 +204,5 @@ class ActionsEasyTooltip
 		}
 
 		return 0;
-	}
-
-	/**
-	 * Overloading the hookConstructor function : replacing the parent's function with the one below
-	 *
-	 * @param   array        $parameters  Hook metadatas (context, etc...)
-	 * @param   CommonObject $object      The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
-	 * @param   string       $action      Current action (if set). Generally create or edit or null
-	 * @param   HookManager  $hookmanager Hook manager propagated to allow calling another hook
-	 * @return  integer                             < 0 on error, 0 on success, 1 to replace standard code
-	 */
-	public function hookConstructor($parameters, &$object, &$action, $hookmanager)
-	{
-		// var_dump($object);
-		if ($object instanceof Product) {
-			//var_dump($object->fields);
-			$object->fields['ref']['csslist'] = 'tdoverflowmax500';
-		}
-		if ($object instanceof Contrat) {
-			// var_dump($object->fields);
-		}
 	}
 }

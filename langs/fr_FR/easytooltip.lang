@@ -37,4 +37,6 @@ About = About
 EasyTooltipAbout = About EasyTooltip
 EasyTooltipAboutPage = EasyTooltip about page
 
-LastCustomerOrder=Dernière commande client
+LastCustomerOrders=Dernières commandes clients
+EasyTooltipCustomer=Client
+EasyTooltipCustomers=Clients
