@@ -28,11 +28,7 @@
  */
 function easytooltipAdminPrepareHead()
 {
-	global $langs, $conf;
-
-	// global $db;
-	// $extrafields = new ExtraFields($db);
-	// $extrafields->fetch_name_optionals_label('myobject');
+	global $conf, $db, $langs;
 
 	$langs->load("easytooltip@easytooltip");
 
@@ -43,7 +39,26 @@ function easytooltipAdminPrepareHead()
 	$head[$h][1] = $langs->trans("Settings");
 	$head[$h][2] = 'settings';
 	$h++;
+	$sql = 'SELECT rowid, name, value FROM ' . MAIN_DB_PREFIX . 'const WHERE name LIKE "EASYTOOLTIP_%_' . $conf->entity . '%" ORDER by name';
 
+	$resql = $db->query($sql);
+	$modules = [];
+	while ($resql && $obj = $db->fetch_object($resql)) {
+		$names = explode('_', $obj->name);
+		if (!isset($modules[$names[1]])) {
+			$modules[$names[1]] = 0;
+		}
+		$modules[$names[1]]++;
+	}
+	foreach ($modules as $key => $value) {
+		$head[$h][0] = dol_buildpath("/easytooltip/admin/setup.php?module=" . $key, 1);
+		$head[$h][1] = $langs->trans($key);
+		if ($value > 0) {
+			$head[$h][1] .= ' <span class="badge">' . $value . '</span>';
+		}
+		$head[$h][2] = 'settings_' . $key;
+		$h++;
+	}
 	/*
 	$head[$h][0] = dol_buildpath("/easytooltip/admin/myobject_extrafields.php", 1);
 	$head[$h][1] = $langs->trans("ExtraFields");

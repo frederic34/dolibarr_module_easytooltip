@@ -41,6 +41,7 @@ if (!$user->admin) {
 
 // Parameters
 $action = GETPOST('action', 'aZ09');
+$module = GETPOST('module', 'alphanohtml');
 $backtopage = GETPOST('backtopage', 'alpha');
 
 $arrayofparameters = [
@@ -65,7 +66,8 @@ if ((int) DOL_VERSION > 17 && getDolGlobalString('MAIN_ENABLE_AJAX_TOOLTIP')) {
 		]
 	);
 }
-$sql = 'SELECT rowid, name, value FROM ' . MAIN_DB_PREFIX . 'const WHERE name LIKE "EASYTOOLTIP_%_'.$conf->entity.'%" ORDER by name';
+$selected = !empty($module) ? $module : '%';
+$sql = 'SELECT rowid, name, value FROM ' . MAIN_DB_PREFIX . 'const WHERE name LIKE "EASYTOOLTIP_'.$selected.'_'.$conf->entity.'%" ORDER by name';
 
 $resql = $db->query($sql);
 $modules = [];
@@ -143,7 +145,8 @@ print load_fiche_titre($langs->trans('EasytooltipSettings'), $linkback, 'technic
 
 $head = easytooltipAdminPrepareHead();
 
-print dol_get_fiche_head($head, 'settings', $langs->trans('EasytooltipSettings'), -1, 'technic');
+$tab = !empty($module) ? 'settings_'.$module : 'settings';
+print dol_get_fiche_head($head, $tab, $langs->trans('EasytooltipSettings'), -1, 'technic');
 
 if ($action == 'edit') {
 	print '<form action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
@@ -210,11 +213,11 @@ if ($action == 'edit') {
 		print '<td align="center" width="100">';
 		$value = (isset($conf->global->$constant) ? $conf->global->$constant : 0);
 		if ($value == 0) {
-			print '<a href="' . $_SERVER['PHP_SELF'] . '?action=enable_' . strtolower($constant) . '&amp;token=' . $_SESSION['newtoken'] . '">';
+			print '<a href="' . $_SERVER['PHP_SELF'] . '?action=enable_' . strtolower($constant) . '&token=' . $_SESSION['newtoken'] . '&module='.$module.'">';
 			print img_picto($langs->trans("Disabled"), 'switch_off');
 			print '</a>';
 		} elseif ($value == 1) {
-			print '<a href="' . $_SERVER['PHP_SELF'] . '?action=disable_' . strtolower($constant) . '&amp;token=' . $_SESSION['newtoken'] . '">';
+			print '<a href="' . $_SERVER['PHP_SELF'] . '?action=disable_' . strtolower($constant) . '&token=' . $_SESSION['newtoken'] . '&module='.$module.'">';
 			print img_picto($langs->trans("Enabled"), 'switch_on');
 			print '</a>';
 		}

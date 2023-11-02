@@ -85,6 +85,7 @@ class ActionsEasyTooltip
 		global $conf, $user, $langs;
 
 		// var_dump($parameters);
+		$langs->load('easytooltip@easytooltip');
 		$contexts = explode(':', $parameters['context']);
 		$found = false;
 		if (in_array('commandedao', $contexts)) {
@@ -99,6 +100,19 @@ class ActionsEasyTooltip
 		} elseif (in_array('productdao', $contexts)) {
 			/** @var Product $object */
 			$found = true;
+			// ADDING LAST CUSTOMER ORDER
+			if ($object->type == Product::TYPE_PRODUCT || ($object->type == Product::TYPE_SERVICE && getDolGlobalString('STOCK_SUPPORTS_SERVICES'))) {
+				$sql = 'SELECT c.rowid as id FROM '.MAIN_DB_PREFIX.'commandedet as cd';
+				$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'commande as c ON c.rowid=cd.fk_commande WHERE cd.fk_product='.$object->id.' ORDER BY cd.rowid DESC';
+				$resql = $this->db->query($sql);
+				if ($this->db->num_rows($resql) > 0) {
+					$obj = $this->db->fetch_object($resql);
+					require_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
+					$static_order = new Commande($this->db);
+					$static_order->fetch($obj->id);
+					$parameters['tooltipcontentarray']['lastcustomerorder'] = '<br><b>'.$langs->trans('LastCustomerOrder').':</b> ' . $static_order->getNomUrl(1, '', 0, 0, 1);
+				}
+			}
 			// ADDING WARHOUSE
 			if ($object->type == Product::TYPE_PRODUCT || ($object->type == Product::TYPE_SERVICE && getDolGlobalString('STOCK_SUPPORTS_SERVICES'))) {
 				$langs->load('stocks');
@@ -148,6 +162,9 @@ class ActionsEasyTooltip
 			}
 		} elseif (in_array('societedao', $contexts)) {
 			/** @var Societe $object */
+			$found = true;
+		} elseif (in_array('projectdao', $contexts)) {
+			/** @var Project $object */
 			$found = true;
 		}
 		if ($found) {
