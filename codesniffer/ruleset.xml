@@ -9,8 +9,6 @@
 	<exclude-pattern type="relative">node_modules</exclude-pattern>
 	<exclude-pattern type="relative">build/html</exclude-pattern>
 
-	<rule ref="Squiz.Commenting.FunctionComment" />
-
 	<!-- List of all tests -->
 	<rule ref="PSR12">
 		<exclude name="Generic.WhiteSpace.DisallowTabIndent"/>

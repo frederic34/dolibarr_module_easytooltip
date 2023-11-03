@@ -63,7 +63,7 @@ class ActionsEasyTooltip
 	/**
 	 * Constructor
 	 *
-	 *  @param		DoliDB $db Database handler
+	 *  @param		DoliDB $db Database handler.
 	 */
 	public function __construct($db)
 	{

@@ -27,11 +27,13 @@
  */
 include_once DOL_DOCUMENT_ROOT . '/core/modules/DolibarrModules.class.php';
 
+// phpcs::disable
 /**
  *  Description and activation class for module EasyTooltip
  */
 class modEasyTooltip extends DolibarrModules
 {
+	// phpcs::enable
 	/**
 	 * Constructor. Define names, constants, directories, boxes, permissions
 	 *
