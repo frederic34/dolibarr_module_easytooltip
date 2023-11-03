@@ -39,16 +39,17 @@ function easytooltipAdminPrepareHead()
 	$head[$h][1] = $langs->trans("Settings");
 	$head[$h][2] = 'settings';
 	$h++;
-	$sql = 'SELECT rowid, name, value FROM ' . MAIN_DB_PREFIX . 'const WHERE name LIKE "EASYTOOLTIP_%_' . $conf->entity . '%" ORDER by name';
+	$sql = 'SELECT rowid, name, value FROM ' . MAIN_DB_PREFIX . 'const WHERE name LIKE "EASYTOOLTIP_%_' . $conf->entity . '_%" ORDER by name';
 
 	$resql = $db->query($sql);
 	$modules = [];
 	while ($resql && $obj = $db->fetch_object($resql)) {
-		$names = explode('_', $obj->name);
-		if (!isset($modules[$names[1]])) {
-			$modules[$names[1]] = 0;
+		$names = explode('_' . $conf->entity . '_', $obj->name);
+		$name = str_replace('EASYTOOLTIP_', '', $names[0]);
+		if (!isset($modules[$name])) {
+			$modules[$name] = 0;
 		}
-		$modules[$names[1]]++;
+		$modules[$name]++;
 	}
 	foreach ($modules as $key => $value) {
 		$head[$h][0] = dol_buildpath("/easytooltip/admin/setup.php?module=" . $key, 1);

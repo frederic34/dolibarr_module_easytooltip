@@ -67,7 +67,7 @@ if ((int) DOL_VERSION > 17 && getDolGlobalString('MAIN_ENABLE_AJAX_TOOLTIP')) {
 	);
 }
 $selected = !empty($module) ? $module : '%';
-$sql = 'SELECT rowid, name, value FROM ' . MAIN_DB_PREFIX . 'const WHERE name LIKE "EASYTOOLTIP_' . $selected . '_' . $conf->entity . '%" ORDER by name';
+$sql = 'SELECT rowid, name, value FROM ' . MAIN_DB_PREFIX . 'const WHERE name LIKE "EASYTOOLTIP_' . $selected . '_' . $conf->entity . '_%" ORDER by name';
 
 $resql = $db->query($sql);
 $modules = [];
