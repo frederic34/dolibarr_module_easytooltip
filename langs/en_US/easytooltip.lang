@@ -1,0 +1,28 @@
+/*
+ * Language code: en_US
+ * Generation date 2023-11-03 15:42:09
+ */
+ModuleEasyTooltipName=EasyTooltip
+ModuleEasyTooltipDesc=EasyTooltip description
+EasyTooltipSetup=EasyTooltip setup
+Settings=Settings
+EasyTooltipSetupPage=EasyTooltip setup page
+About=About
+EasyTooltipAbout=About EasyTooltip
+EasyTooltipAboutPage=EasyTooltip about page
+LastCustomerOrders=Latest customer orders
+EasyTooltipCustomer=Customer
+EasyTooltipCustomers=Clients
+ADHERENT_TYPE=Member type
+MEMBER=Member
+BANK_ACCOUNT=Bank
+COMMANDE=Order
+EXPENSEREPORT=Expense report
+FACTURE=Bill
+USER=User
+HOLIDAY=Leave
+PRODUCT=Product
+PROJECT=Project
+PROPAL=Estimate
+SOCIETE=Third party
+TICKET=Ticket
