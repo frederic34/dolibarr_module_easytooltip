@@ -227,6 +227,18 @@ class ActionsEasyTooltip
 		} elseif (in_array('userdao', $contexts)) {
 			/** @var User $object */
 			$found = true;
+		} elseif (in_array('bank_accountdao', $contexts)) {
+			/** @var Account $object */
+			$found = true;
+		} elseif (in_array('memberdao', $contexts)) {
+			/** @var Adherent $object */
+			$found = true;
+		} elseif (in_array('adherent_typedao', $contexts)) {
+			/** @var AdherentType $object */
+			$found = true;
+		} elseif (in_array('ticketdao', $contexts)) {
+			/** @var Ticket $object */
+			$found = true;
 		} elseif (in_array('projectdao', $contexts)) {
 			/** @var Project $object */
 			$found = true;
