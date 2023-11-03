@@ -44,7 +44,7 @@ function easytooltipAdminPrepareHead()
 	$resql = $db->query($sql);
 	$modules = [];
 	while ($resql && $obj = $db->fetch_object($resql)) {
-		$names = explode('_'.$conf->entity.'_', $obj->name);
+		$names = explode('_' . $conf->entity . '_', $obj->name);
 		$name = str_replace('EASYTOOLTIP_', '', $names[0]);
 		if (!isset($modules[$name])) {
 			$modules[$name] = 0;
