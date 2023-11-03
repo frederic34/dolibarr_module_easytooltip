@@ -107,6 +107,7 @@ class ActionsEasyTooltip
 				$resql = $this->db->query($sql);
 				if ($this->db->num_rows($resql) > 0) {
 					require_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
+					$langs->load('orders');
 					$static_order = new Commande($this->db);
 					$static_customer = new Societe($this->db);
 					$tooltip = '<br>';
@@ -114,6 +115,7 @@ class ActionsEasyTooltip
 					$tooltip .= '<tr class="liste_titre">';
 					$tooltip .= '<th>' . $langs->trans("LastCustomerOrders") . '</th>';
 					$tooltip .= '<th class="left">' . $langs->trans("EasyTooltipCustomers") . '</th>';
+					$tooltip .= '<th class="right">' . $langs->trans("OrderDate") . '</th>';
 					$tooltip .= '<th class="right">' . $langs->trans("Qty") . '</th>';
 					$tooltip .= '</tr>';
 					$total = 0;
@@ -123,15 +125,53 @@ class ActionsEasyTooltip
 						$tooltip .= '<tr class="oddeven">';
 						$tooltip .= '<td>' . $static_order->getNomUrl(1, '', 0, 0, 1) . '</td>';
 						$tooltip .= '<td class="left">' . $static_customer->getNomUrl(1, '', 0, 1) . '</td>';
+						$tooltip .= '<td class="right">' . dol_print_date($static_order->date, 'day') . '</td>';
 						$tooltip .= '<td class="right">' . $obj->qty . '</td>';
 						$total += $obj->qty;
 						$tooltip .= '</tr>';
 					}
 					$tooltip .= '<tr class="liste_total">';
-					$tooltip .= '<td colspan="2" class="liste_total">' . $langs->trans("Total") . ':</td>';
+					$tooltip .= '<td colspan="3" class="liste_total">' . $langs->trans("Total") . ':</td>';
 					$tooltip .= '<td class="liste_total right">' . $total . '</td>';
 					$tooltip .= '</tr></table>';
 					$parameters['tooltipcontentarray']['lastcustomerorder'] = $tooltip;
+				}
+			}
+			// ADDING LAST SUPPLIER ORDER
+			if ($object->type == Product::TYPE_PRODUCT || ($object->type == Product::TYPE_SERVICE && getDolGlobalString('STOCK_SUPPORTS_SERVICES'))) {
+				$sql = 'SELECT c.rowid as id, c.fk_soc, cd.qty FROM ' . MAIN_DB_PREFIX . 'commande_fournisseurdet as cd';
+				$sql .= ' LEFT JOIN ' . MAIN_DB_PREFIX . 'commande_fournisseur as c ON c.rowid=cd.fk_commande WHERE cd.fk_product=' . $object->id . ' ORDER BY cd.rowid DESC LIMIT 2';
+				$resql = $this->db->query($sql);
+				if ($this->db->num_rows($resql) > 0) {
+					require_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
+					$langs->load('orders');
+					$static_order = new CommandeFournisseur($this->db);
+					$static_customer = new Societe($this->db);
+					$tooltip = '<br>';
+					$tooltip .= '<table class="noborder centpercent">';
+					$tooltip .= '<tr class="liste_titre">';
+					$tooltip .= '<th>' . $langs->trans("LastSupplierOrders") . '</th>';
+					$tooltip .= '<th class="left">' . $langs->trans("Suppliers") . '</th>';
+					$tooltip .= '<th class="right">' . $langs->trans("OrderDate") . '</th>';
+					$tooltip .= '<th class="right">' . $langs->trans("Qty") . '</th>';
+					$tooltip .= '</tr>';
+					$total = 0;
+					while ($obj = $this->db->fetch_object($resql)) {
+						$static_order->fetch($obj->id);
+						$static_customer->fetch($obj->fk_soc);
+						$tooltip .= '<tr class="oddeven">';
+						$tooltip .= '<td>' . $static_order->getNomUrl(1, '', 0, 0, 1) . '</td>';
+						$tooltip .= '<td class="left">' . $static_customer->getNomUrl(1, '', 0, 1) . '</td>';
+						$tooltip .= '<td class="right">' . dol_print_date($static_order->date, 'day') . '</td>';
+						$tooltip .= '<td class="right">' . $obj->qty . '</td>';
+						$total += $obj->qty;
+						$tooltip .= '</tr>';
+					}
+					$tooltip .= '<tr class="liste_total">';
+					$tooltip .= '<td colspan="3" class="liste_total">' . $langs->trans("Total") . ':</td>';
+					$tooltip .= '<td class="liste_total right">' . $total . '</td>';
+					$tooltip .= '</tr></table>';
+					$parameters['tooltipcontentarray']['lastsupplierorder'] = $tooltip;
 				}
 			}
 			// ADDING WAREHOUSE
@@ -183,6 +223,9 @@ class ActionsEasyTooltip
 			}
 		} elseif (in_array('societedao', $contexts)) {
 			/** @var Societe $object */
+			$found = true;
+		} elseif (in_array('userdao', $contexts)) {
+			/** @var User $object */
 			$found = true;
 		} elseif (in_array('projectdao', $contexts)) {
 			/** @var Project $object */
