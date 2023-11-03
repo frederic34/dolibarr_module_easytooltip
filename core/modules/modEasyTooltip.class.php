@@ -27,13 +27,13 @@
  */
 include_once DOL_DOCUMENT_ROOT . '/core/modules/DolibarrModules.class.php';
 
-// phpcs::disable
+// phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
 /**
  *  Description and activation class for module EasyTooltip
  */
 class modEasyTooltip extends DolibarrModules
 {
-	// phpcs::enable
+	// phpcs:enable
 	/**
 	 * Constructor. Define names, constants, directories, boxes, permissions
 	 *
@@ -163,17 +163,7 @@ class modEasyTooltip extends DolibarrModules
 		//$this->always_enabled = true;								// If true, can't be disabled
 
 		// Constants
-		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)
-		// Example: $this->const=array(1 => array('EASYTOOLTIP_MYNEWCONST1', 'chaine', 'myvalue', 'This is a constant to add', 1),
-		//                             2 => array('EASYTOOLTIP_MYNEWCONST2', 'chaine', 'myvalue', 'This is another constant to add', 0, 'current', 1)
-		// );
 		$this->const = [];
-
-		// Some keys to add into the overwriting translation tables
-		/*$this->overwrite_translation = array(
-			'en_US:ParentCompany'=>'Parent company or reseller',
-			'fr_FR:ParentCompany'=>'Maison mère ou revendeur'
-		)*/
 
 		if (!isset($conf->easytooltip) || !isset($conf->easytooltip->enabled)) {
 			$conf->easytooltip = new stdClass();
@@ -182,179 +172,23 @@ class modEasyTooltip extends DolibarrModules
 
 		// Array to add new pages in new tabs
 		$this->tabs = [];
-		// Example:
-		// $this->tabs[] = array('data'=>'objecttype:+tabname1:Title1:mylangfile@easytooltip:$user->rights->easytooltip->read:/easytooltip/mynewtab1.php?id=__ID__');  					// To add a new tab identified by code tabname1
-		// $this->tabs[] = array('data'=>'objecttype:+tabname2:SUBSTITUTION_Title2:mylangfile@easytooltip:$user->rights->othermodule->read:/easytooltip/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2. Label will be result of calling all substitution functions on 'Title2' key.
-		// $this->tabs[] = array('data'=>'objecttype:-tabname:NU:conditiontoremove');                                                     										// To remove an existing tab identified by code tabname
-		//
-		// Where objecttype can be
-		// 'categories_x'	  to add a tab in category view (replace 'x' by type of category (0=product, 1=supplier, 2=customer, 3=member)
-		// 'contact'          to add a tab in contact view
-		// 'contract'         to add a tab in contract view
-		// 'group'            to add a tab in group view
-		// 'intervention'     to add a tab in intervention view
-		// 'invoice'          to add a tab in customer invoice view
-		// 'invoice_supplier' to add a tab in supplier invoice view
-		// 'member'           to add a tab in fundation member view
-		// 'opensurveypoll'	  to add a tab in opensurvey poll view
-		// 'order'            to add a tab in sale order view
-		// 'order_supplier'   to add a tab in supplier order view
-		// 'payment'		  to add a tab in payment view
-		// 'payment_supplier' to add a tab in supplier payment view
-		// 'product'          to add a tab in product view
-		// 'propal'           to add a tab in propal view
-		// 'project'          to add a tab in project view
-		// 'stock'            to add a tab in stock view
-		// 'thirdparty'       to add a tab in third party view
-		// 'user'             to add a tab in user view
 
 		// Dictionaries
 		$this->dictionaries = [];
-		/* Example:
-		$this->dictionaries=array(
-			'langs'=>'easytooltip@easytooltip',
-			// List of tables we want to see into dictonnary editor
-			'tabname'=>array("table1", "table2", "table3"),
-			// Label of tables
-			'tablib'=>array("Table1", "Table2", "Table3"),
-			// Request to select fields
-			'tabsql'=>array('SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'table1 as f', 'SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'table2 as f', 'SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'table3 as f'),
-			// Sort order
-			'tabsqlsort'=>array("label ASC", "label ASC", "label ASC"),
-			// List of fields (result of select to show dictionary)
-			'tabfield'=>array("code,label", "code,label", "code,label"),
-			// List of fields (list of fields to edit a record)
-			'tabfieldvalue'=>array("code,label", "code,label", "code,label"),
-			// List of fields (list of fields for insert)
-			'tabfieldinsert'=>array("code,label", "code,label", "code,label"),
-			// Name of columns with primary key (try to always name it 'rowid')
-			'tabrowid'=>array("rowid", "rowid", "rowid"),
-			// Condition to show each dictionary
-			'tabcond'=>array(isModEnabled('easytooltip'), isModEnabled('easytooltip'), isModEnabled('easytooltip')),
-			// Tooltip for every fields of dictionaries: DO NOT PUT AN EMPTY ARRAY
-			'tabhelp'=>array(array('code'=>$langs->trans('CodeTooltipHelp'), 'field2' => 'field2tooltip'), array('code'=>$langs->trans('CodeTooltipHelp'), 'field2' => 'field2tooltip'), ...),
-		);
-		*/
 
 		// Boxes/Widgets
 		// Add here list of php file(s) stored in easytooltip/core/boxes that contains a class to show a widget.
-		$this->boxes = [
-			//  0 => array(
-			//      'file' => 'easytooltipwidget1.php@easytooltip',
-			//      'note' => 'Widget provided by EasyTooltip',
-			//      'enabledbydefaulton' => 'Home',
-			//  ),
-			//  ...
-		];
+		$this->boxes = [];
 
 		// Cronjobs (List of cron jobs entries to add when module is enabled)
 		// unit_frequency must be 60 for minute, 3600 for hour, 86400 for day, 604800 for week
-		$this->cronjobs = [
-			//  0 => array(
-			//      'label' => 'MyJob label',
-			//      'jobtype' => 'method',
-			//      'class' => '/easytooltip/class/myobject.class.php',
-			//      'objectname' => 'MyObject',
-			//      'method' => 'doScheduledJob',
-			//      'parameters' => '',
-			//      'comment' => 'Comment',
-			//      'frequency' => 2,
-			//      'unitfrequency' => 3600,
-			//      'status' => 0,
-			//      'test' => 'isModEnabled("easytooltip")',
-			//      'priority' => 50,
-			//  ),
-		];
-		// Example: $this->cronjobs=array(
-		//    0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'isModEnabled("easytooltip")', 'priority'=>50),
-		//    1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'isModEnabled("easytooltip")', 'priority'=>50)
-		// );
+		$this->cronjobs = [];
 
 		// Permissions provided by this module
 		$this->rights = [];
-		$r = 0;
-		// Add here entries to declare new permissions
-		$this->rights[$r][0] = $this->numero . sprintf("%02d", $r + 1); // Permission id (must not be already used)
-		$this->rights[$r][1] = 'Read objects of EasyTooltip'; // Permission label
-		$this->rights[$r][4] = 'easytooltip';
-		$this->rights[$r][5] = 'read'; // In php code, permission will be checked by test if ($user->rights->easytooltip->myobject->read)
-		$r++;
-		$this->rights[$r][0] = $this->numero . sprintf("%02d", $r + 1); // Permission id (must not be already used)
-		$this->rights[$r][1] = 'Create/Update objects of EasyTooltip'; // Permission label
-		$this->rights[$r][4] = 'easytooltip';
-		$this->rights[$r][5] = 'write'; // In php code, permission will be checked by test if ($user->rights->easytooltip->myobject->write)
-		$r++;
-		$this->rights[$r][0] = $this->numero . sprintf("%02d", $r + 1); // Permission id (must not be already used)
-		$this->rights[$r][1] = 'Delete objects of EasyTooltip'; // Permission label
-		$this->rights[$r][4] = 'easytooltip';
-		$this->rights[$r][5] = 'delete'; // In php code, permission will be checked by test if ($user->rights->easytooltip->myobject->delete)
-		$r++;
 
 		// Main menu entries to add
 		$this->menu = [];
-		$r = 0;
-		// Add here entries to declare new menus
-		// $this->menu[$r++] = array(
-		// 	'fk_menu' => '', // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
-		// 	'type' => 'top', // This is a Top menu entry
-		// 	'titre' => 'ModuleEasyTooltipName',
-		// 	'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle"'),
-		// 	'mainmenu' => 'easytooltip',
-		// 	'leftmenu' => '',
-		// 	'url' => '/easytooltip/easytooltipindex.php',
-		// 	'langs' => 'easytooltip@easytooltip', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-		// 	'position' => 1000 + $r,
-		// 	'enabled' => 'isModEnabled("easytooltip")', // Define condition to show or hide menu entry. Use 'isModEnabled("easytooltip")' if entry must be visible if module is enabled.
-		// 	'perms' => '1', // Use 'perms'=>'$user->hasRight("easytooltip", "myobject", "read")' if you want your menu with a permission rules
-		// 	'target' => '',
-		// 	'user' => 2, // 0=Menu for internal users, 1=external users, 2=both
-		// );
-		/* END MODULEBUILDER TOPMENU */
-		/* BEGIN MODULEBUILDER LEFTMENU MYOBJECT */
-		/*$this->menu[$r++]=array(
-			'fk_menu'=>'fk_mainmenu=easytooltip',      // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
-			'type'=>'left',                          // This is a Left menu entry
-			'titre'=>'MyObject',
-			'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle"'),
-			'mainmenu'=>'easytooltip',
-			'leftmenu'=>'myobject',
-			'url'=>'/easytooltip/easytooltipindex.php',
-			'langs'=>'easytooltip@easytooltip',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-			'position'=>1000+$r,
-			'enabled'=>'isModEnabled("easytooltip")', // Define condition to show or hide menu entry. Use 'isModEnabled("easytooltip")' if entry must be visible if module is enabled.
-			'perms'=>'$user->hasRight("easytooltip", "myobject", "read")',
-			'target'=>'',
-			'user'=>2,				                // 0=Menu for internal users, 1=external users, 2=both
-		);
-		$this->menu[$r++]=array(
-			'fk_menu'=>'fk_mainmenu=easytooltip,fk_leftmenu=myobject',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
-			'type'=>'left',			                // This is a Left menu entry
-			'titre'=>'List_MyObject',
-			'mainmenu'=>'easytooltip',
-			'leftmenu'=>'easytooltip_myobject_list',
-			'url'=>'/easytooltip/myobject_list.php',
-			'langs'=>'easytooltip@easytooltip',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-			'position'=>1000+$r,
-			'enabled'=>'isModEnabled("easytooltip")', // Define condition to show or hide menu entry. Use 'isModEnabled("easytooltip")' if entry must be visible if module is enabled.
-			'perms'=>'$user->hasRight("easytooltip", "myobject", "read")'
-			'target'=>'',
-			'user'=>2,				                // 0=Menu for internal users, 1=external users, 2=both
-		);
-		$this->menu[$r++]=array(
-			'fk_menu'=>'fk_mainmenu=easytooltip,fk_leftmenu=myobject',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
-			'type'=>'left',			                // This is a Left menu entry
-			'titre'=>'New_MyObject',
-			'mainmenu'=>'easytooltip',
-			'leftmenu'=>'easytooltip_myobject_new',
-			'url'=>'/easytooltip/myobject_card.php?action=create',
-			'langs'=>'easytooltip@easytooltip',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-			'position'=>1000+$r,
-			'enabled'=>'isModEnabled("easytooltip")', // Define condition to show or hide menu entry. Use 'isModEnabled("easytooltip")' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-			'perms'=>'$user->hasRight("easytooltip", "myobject", "write")'
-			'target'=>'',
-			'user'=>2,				                // 0=Menu for internal users, 1=external users, 2=both
-		);*/
-		/* END MODULEBUILDER LEFTMENU MYOBJECT */
 	}
 
 	/**
@@ -374,15 +208,6 @@ class modEasyTooltip extends DolibarrModules
 		if ($result < 0) {
 			return -1; // Do not activate module if error 'not allowed' returned when loading module SQL queries (the _load_table run sql with run_sql with the error allowed parameter set to 'default')
 		}
-
-		// Create extrafields during init
-		//include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
-		//$extrafields = new ExtraFields($this->db);
-		//$result1=$extrafields->addExtraField('easytooltip_myattr1', "New Attr 1 label", 'boolean', 1,  3, 'thirdparty',   0, 0, '', '', 1, '', 0, 0, '', '', 'easytooltip@easytooltip', 'isModEnabled("easytooltip")');
-		//$result2=$extrafields->addExtraField('easytooltip_myattr2', "New Attr 2 label", 'varchar', 1, 10, 'project',      0, 0, '', '', 1, '', 0, 0, '', '', 'easytooltip@easytooltip', 'isModEnabled("easytooltip")');
-		//$result3=$extrafields->addExtraField('easytooltip_myattr3', "New Attr 3 label", 'varchar', 1, 10, 'bank_account', 0, 0, '', '', 1, '', 0, 0, '', '', 'easytooltip@easytooltip', 'isModEnabled("easytooltip")');
-		//$result4=$extrafields->addExtraField('easytooltip_myattr4', "New Attr 4 label", 'select',  1,  3, 'thirdparty',   0, 1, '', array('options'=>array('code1'=>'Val1','code2'=>'Val2','code3'=>'Val3')), 1,'', 0, 0, '', '', 'easytooltip@easytooltip', 'isModEnabled("easytooltip")');
-		//$result5=$extrafields->addExtraField('easytooltip_myattr5', "New Attr 5 label", 'text',    1, 10, 'user',         0, 0, '', '', 1, '', 0, 0, '', '', 'easytooltip@easytooltip', 'isModEnabled("easytooltip")');
 
 		// Permissions
 		$this->remove($options);
