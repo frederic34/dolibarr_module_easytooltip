@@ -1,5 +1,5 @@
 # Generated binaries
-/build/*.zip
+/build/easytooltip
 /bin/*.zip
 # Doxygen generated documentation
 /build/doxygen/doxygen_warnings.log
@@ -17,5 +17,4 @@
 /.project
 # Other
 *.back
-/.editorconfig
 /.gitattributes
