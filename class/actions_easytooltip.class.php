@@ -110,7 +110,8 @@ class ActionsEasyTooltip
 					$langs->load('orders');
 					$static_order = new Commande($this->db);
 					$static_customer = new Societe($this->db);
-					$tooltip = '<br>';
+					$tooltip = '';
+					// $tooltip = '<br>';
 					$tooltip .= '<table class="noborder centpercent">';
 					$tooltip .= '<tr class="liste_titre">';
 					$tooltip .= '<th>' . $langs->trans("LastCustomerOrders") . '</th>';
@@ -147,7 +148,8 @@ class ActionsEasyTooltip
 					$langs->load('orders');
 					$static_order = new CommandeFournisseur($this->db);
 					$static_customer = new Societe($this->db);
-					$tooltip = '<br>';
+					$tooltip = '';
+					// $tooltip = '<br>';
 					$tooltip .= '<table class="noborder centpercent">';
 					$tooltip .= '<tr class="liste_titre">';
 					$tooltip .= '<th>' . $langs->trans("LastSupplierOrders") . '</th>';
@@ -194,8 +196,8 @@ class ActionsEasyTooltip
 					$num = $this->db->num_rows($resql);
 					$total = 0;
 					$i = 0;
-
-					$tooltip = '<br>';
+					$tooltip = '';
+					// $tooltip = '<br>';
 					$tooltip .= '<table class="noborder centpercent">';
 					$tooltip .= '<tr class="liste_titre">';
 					$tooltip .= '<th>' . $langs->trans("Warehouse") . '</th>';
