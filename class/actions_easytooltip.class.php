@@ -120,6 +120,7 @@ class ActionsEasyTooltip
 					$tooltip .= '<th class="right">' . $langs->trans("Qty") . '</th>';
 					$tooltip .= '</tr>';
 					$total = 0;
+					$lines = 0;
 					while ($obj = $this->db->fetch_object($resql)) {
 						$static_order->fetch($obj->id);
 						$static_customer->fetch($obj->fk_soc);
@@ -129,12 +130,16 @@ class ActionsEasyTooltip
 						$tooltip .= '<td class="right">' . dol_print_date($static_order->date, 'day') . '</td>';
 						$tooltip .= '<td class="right">' . $obj->qty . '</td>';
 						$total += $obj->qty;
+						$lines++;
 						$tooltip .= '</tr>';
 					}
-					$tooltip .= '<tr class="liste_total">';
-					$tooltip .= '<td colspan="3" class="liste_total">' . $langs->trans("Total") . ':</td>';
-					$tooltip .= '<td class="liste_total right">' . $total . '</td>';
-					$tooltip .= '</tr></table>';
+					if ($lines > 1) {
+						$tooltip .= '<tr class="liste_total">';
+						$tooltip .= '<td colspan="3" class="liste_total">' . $langs->trans("Total") . ':</td>';
+						$tooltip .= '<td class="liste_total right">' . $total . '</td>';
+						$tooltip .= '</tr>';
+					}
+					$tooltip .= '</table>';
 					$parameters['tooltipcontentarray']['lastcustomerorder'] = $tooltip;
 				}
 			}
@@ -144,10 +149,10 @@ class ActionsEasyTooltip
 				$sql .= ' LEFT JOIN ' . MAIN_DB_PREFIX . 'commande_fournisseur as c ON c.rowid=cd.fk_commande WHERE cd.fk_product=' . $object->id . ' ORDER BY cd.rowid DESC LIMIT 2';
 				$resql = $this->db->query($sql);
 				if ($this->db->num_rows($resql) > 0) {
-					require_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
+					require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.commande.class.php';
 					$langs->load('orders');
 					$static_order = new CommandeFournisseur($this->db);
-					$static_customer = new Societe($this->db);
+					$static_supplier = new Societe($this->db);
 					$tooltip = '';
 					// $tooltip = '<br>';
 					$tooltip .= '<table class="noborder centpercent">';
@@ -158,21 +163,26 @@ class ActionsEasyTooltip
 					$tooltip .= '<th class="right">' . $langs->trans("Qty") . '</th>';
 					$tooltip .= '</tr>';
 					$total = 0;
+					$lines = 0;
 					while ($obj = $this->db->fetch_object($resql)) {
 						$static_order->fetch($obj->id);
-						$static_customer->fetch($obj->fk_soc);
+						$static_supplier->fetch($obj->fk_soc);
 						$tooltip .= '<tr class="oddeven">';
 						$tooltip .= '<td>' . $static_order->getNomUrl(1, '', 0, 0, 1) . '</td>';
-						$tooltip .= '<td class="left">' . $static_customer->getNomUrl(1, '', 0, 1) . '</td>';
+						$tooltip .= '<td class="left">' . $static_supplier->getNomUrl(1, '', 0, 1) . '</td>';
 						$tooltip .= '<td class="right">' . dol_print_date($static_order->date, 'day') . '</td>';
 						$tooltip .= '<td class="right">' . $obj->qty . '</td>';
 						$total += $obj->qty;
+						$lines++;
 						$tooltip .= '</tr>';
 					}
-					$tooltip .= '<tr class="liste_total">';
-					$tooltip .= '<td colspan="3" class="liste_total">' . $langs->trans("Total") . ':</td>';
-					$tooltip .= '<td class="liste_total right">' . $total . '</td>';
-					$tooltip .= '</tr></table>';
+					if ($lines > 1) {
+						$tooltip .= '<tr class="liste_total">';
+						$tooltip .= '<td colspan="3" class="liste_total">' . $langs->trans("Total") . ':</td>';
+						$tooltip .= '<td class="liste_total right">' . $total . '</td>';
+						$tooltip .= '</tr>';
+					}
+					$tooltip .= '</table>';
 					$parameters['tooltipcontentarray']['lastsupplierorder'] = $tooltip;
 				}
 			}
@@ -192,20 +202,19 @@ class ActionsEasyTooltip
 				$sql .= " AND e.entity IN (" . getEntity('stock', 1) . ")";
 
 				$resql = $this->db->query($sql);
-				if ($resql) {
-					$num = $this->db->num_rows($resql);
+				if ($this->db->num_rows($resql) > 0) {
 					$total = 0;
-					$i = 0;
+					$lines = 0;
 					$tooltip = '';
 					// $tooltip = '<br>';
 					$tooltip .= '<table class="noborder centpercent">';
+					$tooltip .= '<thead>';
 					$tooltip .= '<tr class="liste_titre">';
 					$tooltip .= '<th>' . $langs->trans("Warehouse") . '</th>';
 					$tooltip .= '<th class="right">' . $langs->trans("NumberOfUnit") . '</th>';
 					$tooltip .= '</tr>';
-
-					while ($i < $num) {
-						$obj = $this->db->fetch_object($resql);
+					$tooltip .= '</thead>';
+					while ($obj = $this->db->fetch_object($resql)) {
 						$warehouse->fetch($obj->rowid);
 						$real_stock = round($obj->reel, 8);
 						$tooltip .= '<tr class="oddeven">';
@@ -213,13 +222,15 @@ class ActionsEasyTooltip
 						$tooltip .= '<td class="right">' . $real_stock . ($real_stock < 0 ? ' ' . img_warning() : '') . '</td>';
 						$tooltip .= '</tr>';
 						$total += $obj->reel;
-						$i++;
+						$lines++;
 					}
-
-					$tooltip .= '<tr class="liste_total">';
-					$tooltip .= '<td class="liste_total">' . $langs->trans("Total") . ':</td>';
-					$tooltip .= '<td class="liste_total right">' . $total . '</td>';
-					$tooltip .= '</tr></table>';
+					if ($lines > 1) {
+						$tooltip .= '<tr class="liste_total">';
+						$tooltip .= '<td class="liste_total">' . $langs->trans("Total") . ':</td>';
+						$tooltip .= '<td class="liste_total right">' . $total . '</td>';
+						$tooltip .= '</tr>';
+					}
+					$tooltip .= '</table>';
 					$parameters['tooltipcontentarray']['stocks'] = $tooltip;
 				}
 			}
