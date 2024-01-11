@@ -1,5 +1,8 @@
 
-## Unreleased (2023-12-04)
+## Unreleased (2024-01-11)
+
+#### :rocket: Enhancement
+* [#5](https://github.com/Net-Logic/dolibarr_module_easytooltip/pull/5) add service duration ([@frederic34](https://github.com/frederic34))
 
 #### :bug: Bug Fix
 * [#1](https://github.com/Net-Logic/dolibarr_module_easytooltip/pull/1) add some objects that can have an underscore ([@frederic34](https://github.com/frederic34))
