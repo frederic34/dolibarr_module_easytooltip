@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2023       Frédéric France <frederic@francefrederic.onmicrosoft.com>
+/* Copyright (C) 2023       Frédéric France <frederic.france@netlogic.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -100,6 +100,18 @@ class ActionsEasyTooltip
 		} elseif (in_array('productdao', $contexts)) {
 			/** @var Product $object */
 			$found = true;
+			// ADDING DURATION IF NOT PRESENT
+			if ($object->type == Product::TYPE_SERVICE && empty($parameters['tooltipcontentarray']['duration']) && !empty($object->duration_value)) {
+				// Duration
+				$tooltip = '<br><b>' . $langs->trans("Duration") . ':</b> ' . $object->duration_value;
+				if ($object->duration_value > 1) {
+					$dur = ["i" => $langs->trans("Minutes"), "h" => $langs->trans("Hours"), "d" => $langs->trans("Days"), "w" => $langs->trans("Weeks"), "m" => $langs->trans("Months"), "y" => $langs->trans("Years")];
+				} elseif ($object->duration_value > 0) {
+					$dur = ["i" => $langs->trans("Minute"), "h" => $langs->trans("Hour"), "d" => $langs->trans("Day"), "w" => $langs->trans("Week"), "m" => $langs->trans("Month"), "y" => $langs->trans("Year")];
+				}
+				$tooltip .= (!empty($object->duration_unit) && isset($dur[$object->duration_unit]) ? "&nbsp;" . $langs->trans($dur[$object->duration_unit]) : '');
+				self::arraySpliceAssoc($parameters['tooltipcontentarray'], 4, 0, ['duration' => $tooltip]);
+			}
 			// ADDING LAST CUSTOMER ORDER
 			if ($object->type == Product::TYPE_PRODUCT || ($object->type == Product::TYPE_SERVICE && getDolGlobalString('STOCK_SUPPORTS_SERVICES'))) {
 				$sql = 'SELECT c.rowid as id, c.fk_soc, cd.qty FROM ' . MAIN_DB_PREFIX . 'commandedet as cd';
@@ -272,5 +284,28 @@ class ActionsEasyTooltip
 		}
 
 		return 0;
+	}
+
+	/**
+	 * arraySpliceAssoc
+	 *
+	 * @param  mixed $input
+	 * @param  mixed $offset
+	 * @param  mixed $length
+	 * @param  mixed $replacement
+	 * @return void
+	 */
+	private function arraySpliceAssoc(&$input, $offset, $length, $replacement)
+	{
+		$replacement = (array) $replacement;
+		$key_indices = array_flip(array_keys($input));
+		if (isset($input[$offset]) && is_string($offset)) {
+			$offset = $key_indices[$offset];
+		}
+		if (isset($input[$length]) && is_string($length)) {
+			$length = $key_indices[$length] - $offset;
+		}
+
+		$input = array_slice($input, 0, $offset, true) + $replacement + array_slice($input, $offset + $length, null, true);
 	}
 }
