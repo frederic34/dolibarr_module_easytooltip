@@ -110,7 +110,7 @@ class ActionsEasyTooltip
 					$dur = ["i" => $langs->trans("Minute"), "h" => $langs->trans("Hour"), "d" => $langs->trans("Day"), "w" => $langs->trans("Week"), "m" => $langs->trans("Month"), "y" => $langs->trans("Year")];
 				}
 				$tooltip .= (!empty($object->duration_unit) && isset($dur[$object->duration_unit]) ? "&nbsp;" . $langs->trans($dur[$object->duration_unit]) : '');
-				self::array_splice_assoc($parameters['tooltipcontentarray'], 4, 0, ['duration' => $tooltip]);
+				self::arraySpliceAssoc($parameters['tooltipcontentarray'], 4, 0, ['duration' => $tooltip]);
 			}
 			// ADDING LAST CUSTOMER ORDER
 			if ($object->type == Product::TYPE_PRODUCT || ($object->type == Product::TYPE_SERVICE && getDolGlobalString('STOCK_SUPPORTS_SERVICES'))) {
@@ -287,7 +287,7 @@ class ActionsEasyTooltip
 	}
 
 	/**
-	 * array_splice_assoc
+	 * arraySpliceAssoc
 	 *
 	 * @param  mixed $input
 	 * @param  mixed $offset
@@ -295,7 +295,7 @@ class ActionsEasyTooltip
 	 * @param  mixed $replacement
 	 * @return void
 	 */
-	private function array_splice_assoc(&$input, $offset, $length, $replacement)
+	private function arraySpliceAssoc(&$input, $offset, $length, $replacement)
 	{
 		$replacement = (array) $replacement;
 		$key_indices = array_flip(array_keys($input));
