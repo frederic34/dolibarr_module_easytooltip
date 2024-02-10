@@ -71,6 +71,23 @@ class ActionsEasyTooltip
 	}
 
 
+
+	/**
+	 * Overloading the formAddObjectLine function : replacing the parent's function with the one below
+	 *
+	 * @param   array        $parameters  Hook metadatas (context, etc...)
+	 * @param   CommonObject $object      The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
+	 * @param   string       $action      Current action (if set). Generally create or edit or null
+	 * @param   HookManager  $hookmanager Hook manager propagated to allow calling another hook
+	 * @return  integer                             < 0 on error, 0 on success, 1 to replace standard code
+	 */
+	public function formAddObjectLine($parameters, &$object, &$action, $hookmanager)
+	{
+		print '<tr class="liste_titre_create"><td></td><td>TEST</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
+
+		return 0;
+	}
+
 	/**
 	 * Overloading the getTooltipContent function : replacing the parent's function with the one below
 	 *
