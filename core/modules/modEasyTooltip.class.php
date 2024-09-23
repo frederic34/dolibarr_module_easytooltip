@@ -1,7 +1,7 @@
 <?php
 /* Copyright (C) 2004-2018  Laurent Destailleur     <eldy@users.sourceforge.net>
  * Copyright (C) 2018-2019  Nicolas ZABOURI         <info@inovea-conseil.com>
- * Copyright (C) 2019-2020  Frédéric France         <frederic.france@netlogic.fr>
+ * Copyright (C) 2019-2020  Frédéric France         <frederic.france@free.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,14 +47,14 @@ class modEasyTooltip extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 135650; // TODO Go on page https://wiki.dolibarr.org/index.php/List_of_modules_id to reserve an id number for your module
+		$this->numero = 491360; // TODO Go on page https://wiki.dolibarr.org/index.php/List_of_modules_id to reserve an id number for your module
 
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'easytooltip';
 
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
 		// It is used to group modules by family in module setup page
-		$this->family = "Net-Logic";
+		$this->family = "other";
 
 		// Module position in the family on 2 digits ('01', '10', '20', ...)
 		$this->module_position = '90';
@@ -70,14 +70,12 @@ class modEasyTooltip extends DolibarrModules
 		$this->descriptionlong = "EasyTooltipDescription";
 
 		// Author
-		$this->editor_name = 'Net Logic';
-		$this->editor_url = 'https://netlogic.fr';
+		$this->editor_name = 'frederic34';
+		$this->editor_url = '';
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated', 'experimental_deprecated' or a version string like 'x.y.z'
 		$this->version = '1.0.0';
 		// Url to the file with your last numberversion of this module
-		$url = 'https://wiki.netlogic.fr/versionmodule.php?module=' . strtolower($this->name) . '&number=' . $this->numero . '&version=' . $this->version . '&dolversion=' . DOL_VERSION;
-		$this->url_last_version = $url;
 
 		// Key used in llx_const table to save module status enabled/disabled (where EASYTOOLTIP is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_' . strtoupper($this->name);
