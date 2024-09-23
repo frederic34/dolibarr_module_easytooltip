@@ -55,7 +55,7 @@ jobs:
         env:
           GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
       - name: Bump version and push tag
-        uses: frederic34/github-dolibarr-action@main
+        uses: Net-Logic/github-dolibarr-action@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO_OWNER: frederic34
