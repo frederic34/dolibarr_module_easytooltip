@@ -1,5 +1,14 @@
 
-## Unreleased (2024-09-23)
+## Unreleased (2024-10-27)
+
+#### :bug: Bug Fix
+* [#8](https://github.com/frederic34/dolibarr_module_easytooltip/pull/8) fix duration units ([@frederic34](https://github.com/frederic34))
+
+#### Committers: 1
+- Frédéric FRANCE ([@frederic34](https://github.com/frederic34))
+
+
+## v1.0.0 (2024-09-23)
 
 #### :rocket: Enhancement
 * [#5](https://github.com/frederic34/dolibarr_module_easytooltip/pull/5) add service duration ([@frederic34](https://github.com/frederic34))
