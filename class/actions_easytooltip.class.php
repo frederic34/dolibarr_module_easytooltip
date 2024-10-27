@@ -101,7 +101,7 @@ class ActionsEasyTooltip
 			// ADDING DURATION IF NOT PRESENT
 			if ($object->type == Product::TYPE_SERVICE && empty($parameters['tooltipcontentarray']['duration']) && !empty($object->duration_value)) {
 				// Duration
-				require_once DOL_DOCUMENT_ROOT.'/core/class/cunits.class.php';
+				require_once DOL_DOCUMENT_ROOT . '/core/class/cunits.class.php';
 				$measuringUnits = new CUnits($this->db);
 				$durations = [];
 				$plural = '';
