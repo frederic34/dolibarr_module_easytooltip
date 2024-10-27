@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2023       Frédéric France <frederic.france@netlogic.fr>
+/* Copyright (C) 2023-2024  Frédéric France <frederic.france@netlogic.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -101,7 +101,6 @@ class ActionsEasyTooltip
 	{
 		global $conf, $user, $langs;
 
-		// var_dump($parameters);
 		$langs->load('easytooltip@easytooltip');
 		$contexts = explode(':', $parameters['context']);
 		$found = false;
@@ -120,13 +119,21 @@ class ActionsEasyTooltip
 			// ADDING DURATION IF NOT PRESENT
 			if ($object->type == Product::TYPE_SERVICE && empty($parameters['tooltipcontentarray']['duration']) && !empty($object->duration_value)) {
 				// Duration
-				$tooltip = '<br><b>' . $langs->trans("Duration") . ':</b> ' . $object->duration_value;
+				require_once DOL_DOCUMENT_ROOT.'/core/class/cunits.class.php';
+				$measuringUnits = new CUnits($this->db);
+				$durations = [];
+				$plural = '';
 				if ($object->duration_value > 1) {
-					$dur = ["i" => $langs->trans("Minutes"), "h" => $langs->trans("Hours"), "d" => $langs->trans("Days"), "w" => $langs->trans("Weeks"), "m" => $langs->trans("Months"), "y" => $langs->trans("Years")];
-				} elseif ($object->duration_value > 0) {
-					$dur = ["i" => $langs->trans("Minute"), "h" => $langs->trans("Hour"), "d" => $langs->trans("Day"), "w" => $langs->trans("Week"), "m" => $langs->trans("Month"), "y" => $langs->trans("Year")];
+					$plural = 's';
 				}
-				$tooltip .= (!empty($object->duration_unit) && isset($dur[$object->duration_unit]) ? "&nbsp;" . $langs->trans($dur[$object->duration_unit]) : '');
+				$result = $measuringUnits->fetchAll('', 'scale', 0, 0, ['t.active' => 1, 't.unit_type' => 'time']);
+				if ($result !== -1) {
+					foreach ($measuringUnits->records as $record) {
+						$durations[$record->short_label] = dol_ucfirst($record->label) . $plural;
+					}
+				}
+				$tooltip = '<br><b>' . $langs->trans("Duration") . ':</b> ' . $object->duration_value;
+				$tooltip .= (!empty($object->duration_unit) && isset($durations[$object->duration_unit]) ? "&nbsp;" . $langs->trans($durations[$object->duration_unit]) : '');
 				self::arraySpliceAssoc($parameters['tooltipcontentarray'], 4, 0, ['duration' => $tooltip]);
 			}
 			// ADDING LAST CUSTOMER ORDER
@@ -280,6 +287,9 @@ class ActionsEasyTooltip
 			$found = true;
 		} elseif (in_array('ticketdao', $contexts)) {
 			/** @var Ticket $object */
+			$found = true;
+		} elseif (in_array('opensurvey_sondagedao', $contexts)) {
+			/** @var Opensurveysondage $object */
 			$found = true;
 		} elseif (in_array('projectdao', $contexts)) {
 			/** @var Project $object */
