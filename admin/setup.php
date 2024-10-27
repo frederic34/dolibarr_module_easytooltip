@@ -187,7 +187,7 @@ if ($action == 'edit') {
 		$tooltiphelp = (($langs->trans($key . 'Tooltip') != $key . 'Tooltip') ? $langs->trans($key . 'Tooltip') : '');
 		print $form->textwithpicto($langs->trans($key), $tooltiphelp);
 		print '</td><td>';
-		$value = $conf->global->$key;
+		$value = $conf->global->$key ?? '';
 		if (isset($val['type']) && $val['type'] == 'password') {
 			$value = preg_replace('/./i', '*', $value);
 		}
