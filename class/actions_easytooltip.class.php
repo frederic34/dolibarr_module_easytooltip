@@ -112,6 +112,7 @@ class ActionsEasyTooltip
 				$tooltip .= (!empty($object->duration_unit) && isset($dur[$object->duration_unit]) ? "&nbsp;" . $langs->trans($dur[$object->duration_unit]) : '');
 				self::arraySpliceAssoc($parameters['tooltipcontentarray'], 4, 0, ['duration' => $tooltip]);
 			}
+			self::arraySpliceAssoc($parameters['tooltipcontentarray'], 4, 0, ['description' => '<br><b>' . $langs->trans("Description") . ':</b> ' . $object->description]);
 			// ADDING LAST CUSTOMER ORDER
 			if ($object->type == Product::TYPE_PRODUCT || ($object->type == Product::TYPE_SERVICE && getDolGlobalString('STOCK_SUPPORTS_SERVICES'))) {
 				$sql = 'SELECT c.rowid as id, c.fk_soc, cd.qty FROM ' . MAIN_DB_PREFIX . 'commandedet as cd';
