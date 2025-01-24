@@ -1,5 +1,8 @@
 
-## Unreleased (2024-10-27)
+## Unreleased (2025-01-24)
+
+#### :rocket: Enhancement
+* [#9](https://github.com/frederic34/dolibarr_module_easytooltip/pull/9) add product description ([@frederic34](https://github.com/frederic34))
 
 #### :bug: Bug Fix
 * [#8](https://github.com/frederic34/dolibarr_module_easytooltip/pull/8) fix duration units ([@frederic34](https://github.com/frederic34))
