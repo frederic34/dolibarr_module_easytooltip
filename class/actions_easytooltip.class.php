@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2023       Frédéric France <frederic.france@free.fr>
+/* Copyright (C) 2023-2025  Frédéric France <frederic.france@free.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -270,6 +270,14 @@ class ActionsEasyTooltip
 			$found = true;
 		}
 		if ($found) {
+			if (!empty($object->note_public)) {
+				$tooltip = '<br><b>' . $langs->trans("NotePublic") . ':</b> ' . $object->note_public;
+				$parameters['tooltipcontentarray']['note_public'] = $tooltip;
+			}
+			if (!empty($object->note_private)) {
+				$tooltip = '<br><b>' . $langs->trans("NotePrivate") . ':</b> ' . $object->note_private;
+				$parameters['tooltipcontentarray']['note_private'] = $tooltip;
+			}
 			require_once DOL_DOCUMENT_ROOT . "/core/lib/admin.lib.php";
 			foreach ($parameters['tooltipcontentarray'] as $key => $value) {
 				if ((getDolGlobalString('EASYTOOLTIP_' . mb_strtoupper($object->element) . '_' . $conf->entity . '_' .  mb_strtoupper($key))) == '') {
