@@ -106,6 +106,7 @@ class modEasyTooltip extends DolibarrModules
 			'printing' => 0,
 			// Set this to 1 if module has its own theme directory (theme)
 			'theme' => 0,
+			'captcha' => 1,
 			// Set this to relative path of css file if module has its own css file
 			'css' => [
 				//    '/easytooltip/css/easytooltip.css.php',
