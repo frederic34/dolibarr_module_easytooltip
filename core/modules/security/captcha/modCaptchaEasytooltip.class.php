@@ -27,12 +27,13 @@
 require_once DOL_DOCUMENT_ROOT . '/core/modules/security/captcha/modules_captcha.php';
 require_once DOL_DOCUMENT_ROOT . '/core/modules/security/generate/modGeneratePassStandard.class.php';
 
-
+// phpcs:disable
 /**
  *	Class to generate a password according to a dolibarr standard rule (12 random chars)
  */
 class modCaptchaEasytooltip extends ModeleCaptcha
 {
+	// phpcs:enable
 	/**
 	 * @var string ID
 	 */
@@ -107,7 +108,6 @@ class modCaptchaEasytooltip extends ModeleCaptcha
 			imagefill($img, 0, 0, $color_bg);
 			$length = strlen($example);
 			for ($i = 0; $i < $length; $i++) {
-
 				$inclinaison = mt_rand(0, 45) * mt_rand(-1, 1);
 				imagettftext($img, 14, $inclinaison, 6 + ($i * 14), 22, $color_font[mt_rand(0, 7)], $font_ttf, $example[$i]);
 			}
