@@ -27,7 +27,7 @@
  */
 include_once DOL_DOCUMENT_ROOT . '/core/modules/DolibarrModules.class.php';
 
-// phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
+// phpcs:disable
 /**
  *  Description and activation class for module EasyTooltip
  */
@@ -163,7 +163,10 @@ class modEasyTooltip extends DolibarrModules
 		//$this->always_enabled = true;								// If true, can't be disabled
 
 		// Constants
-		$this->const = [];
+		$this->const = [
+			['MAIN_FONTAWESOME_DIRECTORY', 'chaine', dol_buildpath('/easytooltip/theme/common/fontawesome-free-7.1', 1), 'Fontawesome 7.1 free', $conf->entity],
+			['MAIN_FONTAWESOME_FAMILY', 'chaine', 'Font Awesome 7 Free', 'Fontawesome 7.1 free', $conf->entity],
+		];
 
 		if (!isset($conf->easytooltip) || !isset($conf->easytooltip->enabled)) {
 			$conf->easytooltip = new stdClass();
@@ -201,7 +204,7 @@ class modEasyTooltip extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $conf, $db, $langs;
 
 		//$result = $this->_load_tables('/install/mysql/', 'easytooltip');
 		$result = $this->_load_tables('/easytooltip/sql/');
@@ -211,6 +214,27 @@ class modEasyTooltip extends DolibarrModules
 
 		// Permissions
 		$this->remove($options);
+		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+		if (getDolGlobalString('MEMCACHED_SERVER') && (class_exists("Memcached") || class_exists("Memcache"))) {
+			$found = false;
+			if (class_exists("Memcached")) {
+				$m = new Memcached();
+				$found = true;
+			} elseif (class_exists("Memcache")) {
+				$m = new Memcache();
+				$found = true;
+			}
+			if ($found) {
+				$tmparray = explode(':', getDolGlobalString('MEMCACHED_SERVER', '127.0.0.1:11211'));
+				$server = $tmparray[0];
+				$port = $tmparray[1] ? $tmparray[1] : 11211;
+
+				dol_syslog("Try to connect to server " . $server . " port " . $port . " with class " . get_class($m));
+				$result = $m->addServer($server, $port);
+				$m->flush();
+				setEventMessage('Memcache flushed');
+			}
+		}
 
 		$sql = [];
 

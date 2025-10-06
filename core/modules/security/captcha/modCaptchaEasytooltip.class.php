@@ -27,12 +27,13 @@
 require_once DOL_DOCUMENT_ROOT . '/core/modules/security/captcha/modules_captcha.php';
 require_once DOL_DOCUMENT_ROOT . '/core/modules/security/generate/modGeneratePassStandard.class.php';
 
-
+// phpcs:disable
 /**
  *	Class to generate a password according to a dolibarr standard rule (12 random chars)
  */
 class modCaptchaEasytooltip extends ModeleCaptcha
 {
+	// phpcs:enable
 	/**
 	 * @var string ID
 	 */
@@ -105,7 +106,6 @@ class modCaptchaEasytooltip extends ModeleCaptcha
 			imagefill($img, 0, 0, $color_bg);
 			$length = strlen($example);
 			for ($i = 0; $i < $length; $i++) {
-
 				$inclinaison = mt_rand(0, 40) * mt_rand(-1, 1);
 				imagettftext($img, 14, $inclinaison, 6 + ($i * 14), 22, $color_font[mt_rand(0, 7)], $font_ttf, $example[$i]);
 			}
@@ -149,7 +149,7 @@ class modCaptchaEasytooltip extends ModeleCaptcha
 		<input id="securitycode" placeholder="' . $langs->trans("SecurityCode") . '" class="flat input-icon-security width125" type="text" maxlength="5" name="code" tabindex="3" autocomplete="off" />
 		</span>
 		<span class="nowrap inline-block">
-		<img class="inline-block valignmiddle" src="' . dol_buildpath('/easytooltip/core/modules/captcha/antispamimage.php', 1) .'" border="0" width="80" height="32" id="img_securitycode" />
+		<img class="inline-block valignmiddle" src="' . dol_buildpath('/easytooltip/core/modules/captcha/antispamimage.php', 1) . '" border="0" width="80" height="32" id="img_securitycode" />
 		<a class="inline-block valignmiddle" href="' . $php_self . '" tabindex="4" data-role="button" onclick="submitFormFromCaptcha(event)">' . img_picto($langs->trans("Refresh"), 'refresh', 'id="captcha_refresh_img"') . '</a>
 		</span>
 

@@ -82,6 +82,7 @@ imagefill($image_captcha, 0, 0, $color_bg);
 
 // Creation du code et écriture au fur et à mesure dans le captcha
 // ---------------------------------------------------------------
+$string = '';
 for ($i = 0; $i < 5; $i++) {
 	$temp = $alphabet[mt_rand(0, strlen($alphabet) - 1)];
 	$inclinaison = mt_rand(0, 30) * mt_rand(-1, 1);
