@@ -87,10 +87,8 @@ class modCaptchaEasytooltip extends ModeleCaptcha
 		$example = $generator->getExample();
 
 		if (function_exists("imagecreate") && function_exists("imagepng")) {
-			// $img = imagecreate(80, 32);
 			$font_ttf = dol_buildpath('/easytooltip/img/LinuxLibertine.ttf', 0);
 			// Initialisation de l'image du captcha
-			// ------------------------------------
 			$img = imagecreatetruecolor(80, 32);
 			if (!$img) {
 				return "Problem with GD creation";
@@ -107,8 +105,8 @@ class modCaptchaEasytooltip extends ModeleCaptcha
 			imagefill($img, 0, 0, $color_bg);
 			$length = strlen($example);
 			for ($i = 0; $i < $length; $i++) {
-				
-				$inclinaison = mt_rand(0, 45) * mt_rand(-1, 1);
+
+				$inclinaison = mt_rand(0, 40) * mt_rand(-1, 1);
 				imagettftext($img, 14, $inclinaison, 6 + ($i * 14), 22, $color_font[mt_rand(0, 7)], $font_ttf, $example[$i]);
 			}
 			// $background_color = imagecolorallocate($img, 250, 250, 250);
