@@ -24,9 +24,8 @@ require_once '../../../config.php';
 dol_include_once('/easytooltip/vendor/autoload.php');
 
 // Load the IconCaptcha options.
-$options = require '../../../captcha-config.php';
+$options = require dol_buildpath('/easytooltip/captcha-config.php', 0);
 
-// var_dump($config);
 // Create an instance of IconCaptcha.
 use IconCaptcha\IconCaptcha;
 
