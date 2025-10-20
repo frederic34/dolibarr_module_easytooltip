@@ -55,3 +55,5 @@ SOCIETE=Tiers
 TICKET=Ticket
 DolibarrEasytooltipCaptcha=Captcha amélioré
 OPENSURVEY_SONDAGE=Sondage
+VerifyThatYouAreHuman=Êtes vous humain ?
+SelectTheImageDisplayed=Selectionnez l'image affichée le <u>moins</u> de fois
