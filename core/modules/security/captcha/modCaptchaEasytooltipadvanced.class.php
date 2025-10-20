@@ -211,9 +211,15 @@ class modCaptchaEasytooltipadvanced extends ModeleCaptcha
 	 */
 	public function validateCodeAfterLoginSubmit()
 	{
-		$sessionkey = 'dol_antispam_value';		// The same key than set into the /core/antispamimage.php file.
-		var_dump($_SESSION);
-		$ok = (array_key_exists($sessionkey, $_SESSION) && (strtolower($_SESSION[$sessionkey]) === strtolower(GETPOST('code', 'restricthtml')))) ? 1 : 0;
+		$options = require dol_buildpath('/easytooltip/captcha-config.php', 0);
+
+		// Create an instance of IconCaptcha.
+		$captcha = new IconCaptcha($options);
+
+		// Validate the captcha.
+		$validation = $captcha->validate($_POST);
+
+		$ok = $validation->success();
 
 		return $ok;
 	}
