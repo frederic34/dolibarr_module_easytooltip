@@ -1,7 +1,8 @@
 
-## Unreleased (2025-10-04)
+## Unreleased (2025-10-21)
 
 #### :rocket: Enhancement
+* [#14](https://github.com/frederic34/dolibarr_module_easytooltip/pull/14) add fontawesome 7 free ([@frederic34](https://github.com/frederic34))
 * [#9](https://github.com/frederic34/dolibarr_module_easytooltip/pull/9) add product description ([@frederic34](https://github.com/frederic34))
 
 #### :bug: Bug Fix

@@ -28,3 +28,5 @@ SOCIETE=Strona trzecia
 TICKET=Bilet
 OPENSURVEY_SONDAGE=Ankieta
 DolibarrEasytooltipCaptcha=Ulepszona Captcha
+VerifyThatYouAreHuman=Czy jesteś człowiekiem?
+SelectTheImageDisplayed=Wybierz obraz wyświetlony <u>najmniej</u> razy

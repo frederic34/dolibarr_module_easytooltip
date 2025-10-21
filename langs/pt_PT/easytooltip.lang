@@ -28,3 +28,5 @@ SOCIETE=Terceiro
 TICKET=Bilhete
 OPENSURVEY_SONDAGE=Enquete
 DolibarrEasytooltipCaptcha=Captcha aprimorado
+VerifyThatYouAreHuman=Você é humano?
+SelectTheImageDisplayed=Selecione a imagem exibida <u>menos</u> vezes
