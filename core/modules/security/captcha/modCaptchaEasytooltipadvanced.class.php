@@ -83,57 +83,7 @@ class modCaptchaEasytooltipadvanced extends ModeleCaptcha
 	 */
 	public function getExample()
 	{
-		global $db, $langs, $user;
-
-		$out = '
-		<!-- The widget will be rendered in this element. -->
-		<div class="iconcaptcha-widget" data-theme="light"></div>
-
-		<!-- Additional security feature to prevent CSRF. -->
-		<!-- Optional, but highly recommended. Configure in config (\'token\' option). -->';
-		$out .= \IconCaptcha\Token\IconCaptchaToken::render();
-		$out .= '
-
-		<!-- Include the assets. Change the paths accordingly or use the CDN assets. -->
-		<link href="' . dol_buildpath('/easytooltip/iconcaptcha/client/css/iconcaptcha.min.css', 1) . '" rel="stylesheet" type="text/css">
-		<script src="' . dol_buildpath('/easytooltip/iconcaptcha/client//js/iconcaptcha.min.js', 1) . '" type="text/javascript"></script>
-		<script type="text/javascript">
-			document.addEventListener("DOMContentLoaded", function() {
-				IconCaptcha.init(".iconcaptcha-widget", {
-					general: {
-						endpoint: "' . dol_buildpath('/easytooltip/core/modules/captcha/captcha-request.php', 1) . '",
-						fontFamily: "inherit",
-						showCredits: false,
-					},
-					security: {
-						interactionDelay: 1500,
-						hoverProtection: true,
-						displayInitialMessage: true,
-						initializationDelay: 500,
-						incorrectSelectionResetDelay: 3000,
-						loadingAnimationDuration: 1000,
-					},
-					locale: {
-						initialization: {
-							verify: "' . $langs->trans('VerifyThatYouAreHuman') . '",
-							loading: "Loading challenge...",
-					},
-					header: "' . $langs->trans('SelectTheImageDisplayed') . '",
-					correct: "Verification complete.",
-					incorrect: {
-						title: "Uh oh.",
-						subtitle: "You\'ve selected the wrong image.",
-					},
-					timeout: {
-						title: "' . $langs->trans('PleaseWait') . '",
-						subtitle: "You made too many incorrect selections."
-					}
-						}
-					});
-				});
-			</script>';
-
-		return $out;
+		return $this->getCaptchaCodeForForm();
 	}
 
 	/**
@@ -176,12 +126,12 @@ class modCaptchaEasytooltipadvanced extends ModeleCaptcha
 						displayInitialMessage: true,
 						initializationDelay: 500,
 						incorrectSelectionResetDelay: 3000,
-						loadingAnimationDuration: 1000,
+						loadingAnimationDuration: 500,
 					},
 					locale: {
 						initialization: {
 							verify: "' . $langs->trans('VerifyThatYouAreHuman') . '",
-							loading: "Loading challenge...",
+							loading: "' . $langs->transnoentities('LoadingChallenge') . '",
 					},
 					header: "' . $langs->trans('SelectTheImageDisplayed') . '",
 					correct: "Verification complete.",
@@ -191,12 +141,12 @@ class modCaptchaEasytooltipadvanced extends ModeleCaptcha
 					},
 					timeout: {
 						title: "' . $langs->trans('PleaseWait') . '",
-						subtitle: "You made too many incorrect selections."
+						subtitle: "' . $langs->trans('YouMadeTooManyIncorrectSelections') . '"
 					}
-						}
-					});
-				});
-			</script>';
+				}
+			});
+		});
+		</script>';
 
 		return $out;
 	}

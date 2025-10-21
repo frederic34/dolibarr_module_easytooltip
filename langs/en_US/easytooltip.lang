@@ -30,3 +30,5 @@ OPENSURVEY_SONDAGE=Survey
 DolibarrEasytooltipCaptcha=Improved Captcha
 SelectTheImageDisplayed=Select the image displayed the <u>least</u> amount of times
 VerifyThatYouAreHuman=Are you human?
+YouMadeTooManyIncorrectSelections=You made too many incorrect selections.
+LoadingChallenge=Loading challenge...
