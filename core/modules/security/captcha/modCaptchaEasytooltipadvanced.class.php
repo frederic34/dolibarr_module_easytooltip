@@ -95,13 +95,13 @@ class modCaptchaEasytooltipadvanced extends ModeleCaptcha
 		$out .= '
 
 		<!-- Include the assets. Change the paths accordingly or use the CDN assets. -->
-		<link href="'.dol_buildpath('/easytooltip/iconcaptcha/client/css/iconcaptcha.min.css', 1).'" rel="stylesheet" type="text/css">
-		<script src="'.dol_buildpath('/easytooltip/iconcaptcha/client//js/iconcaptcha.min.js', 1).'" type="text/javascript"></script>
+		<link href="' . dol_buildpath('/easytooltip/iconcaptcha/client/css/iconcaptcha.min.css', 1) . '" rel="stylesheet" type="text/css">
+		<script src="' . dol_buildpath('/easytooltip/iconcaptcha/client//js/iconcaptcha.min.js', 1) . '" type="text/javascript"></script>
 		<script type="text/javascript">
 			document.addEventListener("DOMContentLoaded", function() {
 				IconCaptcha.init(".iconcaptcha-widget", {
 					general: {
-						endpoint: "'.dol_buildpath('/easytooltip/core/modules/captcha/captcha-request.php', 1).'",
+						endpoint: "' . dol_buildpath('/easytooltip/core/modules/captcha/captcha-request.php', 1) . '",
 						fontFamily: "inherit",
 						showCredits: false,
 					},
@@ -115,17 +115,17 @@ class modCaptchaEasytooltipadvanced extends ModeleCaptcha
 					},
 					locale: {
 						initialization: {
-							verify: "'.$langs->trans('VerifyThatYouAreHuman').'",
+							verify: "' . $langs->trans('VerifyThatYouAreHuman') . '",
 							loading: "Loading challenge...",
 					},
-					header: "'.$langs->trans('SelectTheImageDisplayed').'",
+					header: "' . $langs->trans('SelectTheImageDisplayed') . '",
 					correct: "Verification complete.",
 					incorrect: {
 						title: "Uh oh.",
 						subtitle: "You\'ve selected the wrong image.",
 					},
 					timeout: {
-						title: "'.$langs->trans('PleaseWait').'",
+						title: "' . $langs->trans('PleaseWait') . '",
 						subtitle: "You made too many incorrect selections."
 					}
 						}
@@ -160,13 +160,13 @@ class modCaptchaEasytooltipadvanced extends ModeleCaptcha
 		$out .= '
 
 		<!-- Include the assets. Change the paths accordingly or use the CDN assets. -->
-		<link href="'.dol_buildpath('/easytooltip/iconcaptcha/client/css/iconcaptcha.min.css', 1).'" rel="stylesheet" type="text/css">
-		<script src="'.dol_buildpath('/easytooltip/iconcaptcha/client//js/iconcaptcha.min.js', 1).'" type="text/javascript"></script>
+		<link href="' . dol_buildpath('/easytooltip/iconcaptcha/client/css/iconcaptcha.min.css', 1) . '" rel="stylesheet" type="text/css">
+		<script src="' . dol_buildpath('/easytooltip/iconcaptcha/client//js/iconcaptcha.min.js', 1) . '" type="text/javascript"></script>
 		<script type="text/javascript">
 			document.addEventListener("DOMContentLoaded", function() {
 				IconCaptcha.init(".iconcaptcha-widget", {
 					general: {
-						endpoint: "'.dol_buildpath('/easytooltip/core/modules/captcha/captcha-request.php', 1).'",
+						endpoint: "' . dol_buildpath('/easytooltip/core/modules/captcha/captcha-request.php', 1) . '",
 						fontFamily: "inherit",
 						showCredits: false,
 					},
@@ -180,17 +180,17 @@ class modCaptchaEasytooltipadvanced extends ModeleCaptcha
 					},
 					locale: {
 						initialization: {
-							verify: "'.$langs->trans('VerifyThatYouAreHuman').'",
+							verify: "' . $langs->trans('VerifyThatYouAreHuman') . '",
 							loading: "Loading challenge...",
 					},
-					header: "'.$langs->trans('SelectTheImageDisplayed').'",
+					header: "' . $langs->trans('SelectTheImageDisplayed') . '",
 					correct: "Verification complete.",
 					incorrect: {
 						title: "Uh oh.",
 						subtitle: "You\'ve selected the wrong image.",
 					},
 					timeout: {
-						title: "'.$langs->trans('PleaseWait').'",
+						title: "' . $langs->trans('PleaseWait') . '",
 						subtitle: "You made too many incorrect selections."
 					}
 						}
