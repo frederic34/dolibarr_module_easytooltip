@@ -28,3 +28,4 @@ SOCIETE=Third party
 TICKET=Ticket
 OPENSURVEY_SONDAGE=Survey
 DolibarrEasytooltipCaptcha=Improved Captcha
+SelectTheImageDisplayed=Select the image displayed the <u>least</u> amount of times

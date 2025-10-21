@@ -1,0 +1,5 @@
+{
+    "require": {
+        "fabianwennink/iconcaptcha": "^4.0"
+    }
+}

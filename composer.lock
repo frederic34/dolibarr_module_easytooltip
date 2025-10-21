@@ -1,0 +1,81 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "5a76b089fdacd54e03e81bd269b27b5d",
+    "packages": [
+        {
+            "name": "fabianwennink/iconcaptcha",
+            "version": "4.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fabianwennink/IconCaptcha-PHP.git",
+                "reference": "a64c3799c4d43f56df0abe472e2e2d0522536eef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fabianwennink/IconCaptcha-PHP/zipball/a64c3799c4d43f56df0abe472e2e2d0522536eef",
+                "reference": "a64c3799c4d43f56df0abe472e2e2d0522536eef",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.4"
+            },
+            "suggest": {
+                "ext-gd": "Required if you wish to use the GD image generator.",
+                "ext-imagick": "Required if you wish to use the ImageMagick image generator.",
+                "ext-pdo": "Required if you wish to use the default PDOSession class."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "IconCaptcha\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabian Wennink",
+                    "homepage": "https://www.fabianwennink.nl/en"
+                }
+            ],
+            "description": "IconCaptcha is a self-hosted, customizable, easy-to-implement and user-friendly captcha.",
+            "homepage": "https://github.com/fabianwennink/IconCaptcha-PHP",
+            "keywords": [
+                "anti-bot",
+                "anti-spam",
+                "bots",
+                "captcha",
+                "iconcaptcha",
+                "spam"
+            ],
+            "support": {
+                "issues": "https://github.com/fabianwennink/IconCaptcha-PHP/issues",
+                "source": "https://github.com/fabianwennink/IconCaptcha-PHP/tree/4.0.6",
+                "wiki": "https://github.com/fabianwennink/IconCaptcha-PHP/wiki"
+            },
+            "funding": [
+                {
+                    "url": "https://www.buymeacoffee.com/fabianwennink",
+                    "type": "custom"
+                }
+            ],
+            "time": "2025-06-16T20:48:49+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
+}
