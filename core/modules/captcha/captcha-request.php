@@ -30,7 +30,6 @@ $options = require dol_buildpath('/easytooltip/captcha-config.php', 0);
 use IconCaptcha\IconCaptcha;
 
 try {
-
 	// Start a session.
 	// * Only required when using any 'session' driver in the configuration.
 	session_start();
@@ -48,9 +47,6 @@ try {
 	// Request was not supported/recognized.
 	http_response_code(400);
 } catch (Throwable $exception) {
-
 	http_response_code(500);
-
 	// Add your custom error logging handling here.
-
 }
