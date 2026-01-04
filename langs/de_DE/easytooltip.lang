@@ -28,3 +28,5 @@ SOCIETE=Dritte Seite
 TICKET=Fahrkarte
 OPENSURVEY_SONDAGE=Umfrage
 DolibarrEasytooltipCaptcha=Verbessertes Captcha
+VerifyThatYouAreHuman=Bist du ein Mensch?
+SelectTheImageDisplayed=Wählen Sie das Bild aus, das am <u>seltensten</u> angezeigt wird
