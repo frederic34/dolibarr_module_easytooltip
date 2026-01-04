@@ -1,7 +1,7 @@
 {
   "name": "easytooltip",
   "changelog": {
-    "repo": "Net-Logic/dolibarr_module_easytooltip",
+    "repo": "frederic34/dolibarr_module_easytooltip",
     "labels": {
       "nextVersion": "Unreleased",
       "breaking": ":boom: Breaking Change",
