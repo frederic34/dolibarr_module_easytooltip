@@ -1,5 +1,5 @@
 
-## Unreleased (2025-12-29)
+## Unreleased (2026-01-04)
 
 #### :rocket: Enhancement
 * [#15](https://github.com/frederic34/dolibarr_module_easytooltip/pull/15) add files ([@frederic34](https://github.com/frederic34))
