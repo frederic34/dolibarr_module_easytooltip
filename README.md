@@ -2,11 +2,33 @@
 
 ## Features
 
-Description of the module...
+EasyTooltip enriches the informative tooltips Dolibarr shows when you hover a
+link to an object (order, invoice, quote, product, third party, user, bank
+account, member, ticket, survey, project...). For each object type it can add,
+on top of the standard tooltip content:
 
-<!--
-![Screenshot easytooltip](img/screenshot_easytooltip.png?raw=true "EasyTooltip"){imgmd}
--->
+- The public and private notes of the object.
+- For products/services: the full description, the service duration, the
+  latest customer orders, the latest supplier orders, and the stock per
+  warehouse.
+
+Each of these extra blocks can be enabled or disabled independently per
+object type from the module setup page.
+
+The module also provides two additional CAPTCHA drivers, selectable from
+`Home - Setup - Security - Captcha code`:
+
+- **EasyTooltip**: a simple image CAPTCHA (GD-generated, like the Dolibarr
+  standard one but with mixed colors and rotation).
+- **EasyTooltip advanced**: an image-selection CAPTCHA based on the
+  [IconCaptcha](https://github.com/fabianwennink/IconCaptcha-PHP) library,
+  where the user has to click the icon that appears the least amount of
+  times.
+
+Finally, the module ships FontAwesome 7 (free) and, when activated,
+automatically switches Dolibarr's icon set to it (constant
+`MAIN_FONTAWESOME_DIRECTORY`), instead of the FontAwesome 5 bundled with
+Dolibarr core.
 
 Other external modules are available on [Dolistore.com](https://www.dolistore.com).
 
